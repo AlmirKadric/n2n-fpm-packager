@@ -1,0 +1,25 @@
+# Use latest debian as base image
+FROM debian:latest
+
+# Install sudo to let our script run properly
+# We're already root, so we don't have to worry about groups etc
+RUN apt-get update && \
+    apt-get install -y sudo
+
+# Install script dependencies to allow for caching
+RUN apt-get update && \
+    apt-get install -y git
+
+RUN apt-get update && \
+    apt-get install -y make autoconf automake pkg-config gcc g++
+
+RUN apt-get update && \
+    apt-get install -y ruby ruby-dev libffi6 libffi-dev
+
+# Copy in our files
+RUN mkdir -p /opt/n2n-fpm-packager
+WORKDIR /opt/n2n-fpm-packager
+COPY . .
+
+# Execute the build script
+RUN bash ./package.deb.sh

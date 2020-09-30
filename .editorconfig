@@ -1,0 +1,12 @@
+# EditorConfig is awesome: http://EditorConfig.org
+# Download a plugin for your favorite editor from http://editorconfig.org/#download
+
+root = true
+
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false

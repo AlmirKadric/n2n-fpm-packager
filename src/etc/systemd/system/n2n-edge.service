@@ -1,0 +1,10 @@
+[Unit]
+Description=N2N Peer-to-Peer VPN network
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/n2n/edge.conf
+ExecStart=/sbin/edge -f -r -E -l "${SUPERNODE}" -c "${N2N_COMMUNITY}" -a "${ADDRESS}"
+
+[Install]
+WantedBy=multi-user.target

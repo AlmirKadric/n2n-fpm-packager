@@ -1,0 +1,8 @@
+# Ignore dockerfiles
+Dockerfile*
+
+# Ignore build paths
+/deps
+/package
+/src
+!/src/etc

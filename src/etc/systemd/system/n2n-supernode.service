@@ -1,0 +1,11 @@
+[Unit]
+Description=N2N Peer-to-Peer VPN network
+After=network.target
+
+[Service]
+RuntimeDirectory=supernode
+EnvironmentFile=/etc/n2n/supernode.conf
+ExecStart=/sbin/supernode -t /run/supernode/mgmt -l $PORT $PARAMETER
+
+[Install]
+WantedBy=multi-user.target
