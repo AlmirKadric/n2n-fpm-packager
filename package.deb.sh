@@ -61,6 +61,7 @@ fpm -s dir -t deb \
 \
     --depends "libc6" \
     --depends "net-tools" \
+    --depends "uml-utilities" \
 \
     --force \
     --package "${SCRIPT_PATH}/package" \

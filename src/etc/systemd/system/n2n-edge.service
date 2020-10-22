@@ -4,7 +4,8 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/n2n/edge.conf
-ExecStart=/sbin/edge -f -r -E -l "${SUPERNODE}" -c "${N2N_COMMUNITY}" -a "${ADDRESS}"
+ExecStartPre=tunctl -t "${N2N_IFACE}"
+ExecStart=/sbin/edge -f -r -E -l "${SUPERNODE}" -c "${N2N_COMMUNITY}" -a "${ADDRESS}" -d "${N2N_IFACE}"
 
 [Install]
 WantedBy=multi-user.target

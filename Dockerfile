@@ -17,5 +17,12 @@ ENV SUPERNODE "0.0.0.0"
 ENV N2N_COMMUNITY "n2n-community"
 ENV N2N_KEY "123456789"
 ENV ADDRESS "0.0.0.0:1200"
+ENV N2N_IFACE "edge0"
 
-CMD /sbin/edge -f -r -E -l "${SUPERNODE}" -c "${N2N_COMMUNITY}" -k "${N2N_KEY}" -a "${ADDRESS}"
+CMD tunctl -t "${N2N_IFACE}" && \
+    /sbin/edge -f -r -E \
+        -l "${SUPERNODE}" \
+        -c "${N2N_COMMUNITY}" \
+        -k "${N2N_KEY}" \
+        -a "${ADDRESS}" \
+        -d "${N2N_IFACE}"
