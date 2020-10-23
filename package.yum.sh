@@ -77,7 +77,6 @@ fpm -s dir -t rpm \
     --iteration "${PACKAGE_ITERATION}" \
 \
     --depends "glibc-devel" \
-    --depends "tunctl" \
     --depends "net-tools" \
 \
     --force \

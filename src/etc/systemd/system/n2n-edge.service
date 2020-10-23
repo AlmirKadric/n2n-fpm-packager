@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/n2n/edge.conf
-ExecStartPre=tunctl -t "${N2N_IFACE}"
+ExecStartPre=ip tuntap add mode tap name "${N2N_IFACE}" user root
 ExecStart=/sbin/edge -f -r -E -l "${SUPERNODE}" -c "${N2N_COMMUNITY}" -a "${ADDRESS}" -d "${N2N_IFACE}"
 
 [Install]
