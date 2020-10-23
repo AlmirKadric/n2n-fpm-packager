@@ -112,19 +112,19 @@ Packaging
 ---------
 Debian Package
 ```
-docker build -t n2n-fpm-packager:deb -f Dockerfile.build-deb .
+docker build --rm -t n2n-fpm-packager:deb -f Dockerfile.build-deb .
 docker run --rm -v $PWD/package:/opt/mount n2n-fpm-packager:deb bash -c 'cp package/n2n* /opt/mount'
 ```
 
 Amazon Package
 ```
-docker build -t n2n-fpm-packager:amzn1 -f Dockerfile.build-amzn1 .
+docker build --rm -t n2n-fpm-packager:amzn1 -f Dockerfile.build-amzn1 .
 docker run --rm -v $PWD/package:/opt/mount n2n-fpm-packager:amzn1 bash -c 'cp package/n2n* /opt/mount'
 ```
 
 Docker Image
 ```
-docker build --no-cache -t almirkadric/n2n-2.8.0 .
+docker build --rm --no-cache -t almirkadric/n2n-2.8.0 .
 docker push almirkadric/n2n-2.8.0
 ```
 
