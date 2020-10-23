@@ -4,8 +4,10 @@ After=network.target
 
 [Service]
 EnvironmentFile=/etc/n2n/edge.conf
-ExecStartPre=ip tuntap add mode tap name "${N2N_IFACE}" user root
-ExecStart=/sbin/edge -f -r -E -l "${SUPERNODE}" -c "${N2N_COMMUNITY}" -a "${ADDRESS}" -d "${N2N_IFACE}"
+ExecStart=/bin/bash -c "\
+    /sbin/ip tuntap | grep -q '^${N2N_IFACE}:' || /sbin/ip tuntap add '${N2N_IFACE}' mode tap && \
+    /sbin/edge -f -r -E -l '${SUPERNODE}' -c '${N2N_COMMUNITY}' -a '${ADDRESS}' -d '${N2N_IFACE}' \
+"
 
 [Install]
 WantedBy=multi-user.target
