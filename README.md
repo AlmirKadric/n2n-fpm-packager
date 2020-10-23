@@ -116,6 +116,12 @@ docker build -t n2n-fpm-packager -f Dockerfile.build-deb .
 docker run --rm -v $PWD/package:/opt/mount n2n-fpm-packager bash -c 'cp package/n2n* /opt/mount'
 ```
 
+Amazon Package
+```
+docker build -t n2n-fpm-packager -f Dockerfile.build-amzn1 .
+docker run --rm -v $PWD/package:/opt/mount n2n-fpm-packager bash -c 'cp package/n2n* /opt/mount'
+```
+
 Docker Image
 ```
 docker build --no-cache -t almirkadric/n2n-2.8.0 .

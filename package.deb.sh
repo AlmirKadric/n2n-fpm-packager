@@ -42,7 +42,7 @@ popd
 
 
 # Install packaging dependencies
-sudo apt-get install -y ruby ruby-dev libffi6 libffi-dev
+sudo apt-get install -y ruby ruby-dev debianutils procps libffi6 libffi-dev
 sudo gem install fpm
 
 # Create Debian package

@@ -14,7 +14,9 @@ RUN apt-get update && \
     apt-get install -y make autoconf automake pkg-config gcc g++
 
 RUN apt-get update && \
-    apt-get install -y ruby ruby-dev libffi6 libffi-dev
+    apt-get install -y ruby ruby-dev debianutils procps libffi6 libffi-dev
+
+RUN gem install fpm
 
 # Copy in our files
 RUN mkdir -p /opt/n2n-fpm-packager

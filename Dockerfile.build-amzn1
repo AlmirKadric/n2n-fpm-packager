@@ -1,0 +1,28 @@
+# Use latest amazon as base image
+FROM amazonlinux:1
+
+# Install sudo to let our script run properly
+# We're already root, so we don't have to worry about groups etc
+RUN yum install -y sudo
+
+# Install script dependencies to allow for caching
+RUN yum install -y git
+
+RUN yum install -y make autoconf automake pkgconfig gcc g++
+
+RUN yum install -y which procps libffi libffi-devel rpm-build
+
+RUN curl -sSL https://rvm.io/mpapis.asc | gpg --import - && \
+    curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import - && \
+    curl -sSL https://get.rvm.io | bash -s stable && \
+    bash -c "source /etc/profile.d/rvm.sh && rvm install 2.5"
+
+RUN bash -c "source /etc/profile.d/rvm.sh && rvm use 2.5 && gem install fpm"
+
+# Copy in our files
+RUN mkdir -p /opt/n2n-fpm-packager
+WORKDIR /opt/n2n-fpm-packager
+COPY . .
+
+# Execute the build script
+RUN bash ./package.yum.sh

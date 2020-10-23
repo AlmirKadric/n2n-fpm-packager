@@ -24,7 +24,7 @@ git checkout "${BUILD_VERSION}"
 
 
 # Install build dependencies
-sudo yum install -y autoconf automake gcc g++
+sudo yum install -y make autoconf automake pkgconfig gcc g++
 
 # Compile the dependency sources
 pushd "${SCRIPT_PATH}/deps/n2n"
@@ -42,12 +42,20 @@ popd
 
 
 # Install packaging dependencies
-sudo yum install -y libffi libffi-devel rpm-build
+sudo yum install -y which procps libffi libffi-devel rpm-build
 # Install Ruby 2.5 using RVM
 set +o nounset
 curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
 curl -sSL https://get.rvm.io | bash -s stable
-source /home/ec2-user/.rvm/scripts/rvm
+if [ -e ~/.rvm/scripts/rvm ]; then
+    source ~/.rvm/scripts/rvm
+elif [ -e /etc/profile.d/rvm.sh ]; then
+    source /etc/profile.d/rvm.sh
+else
+    echo "Cannot find rvm..."
+    exit 1
+fi
 rvm install 2.5
 rvm use 2.5
 set -o nounset
@@ -69,6 +77,7 @@ fpm -s dir -t rpm \
     --iteration "${PACKAGE_ITERATION}" \
 \
     --depends "glibc-devel" \
+    --depends "tunctl" \
     --depends "net-tools" \
 \
     --force \
