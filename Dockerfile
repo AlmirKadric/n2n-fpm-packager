@@ -19,7 +19,7 @@ ENV N2N_KEY "123456789"
 ENV ADDRESS "0.0.0.0:1200"
 ENV N2N_IFACE "edge0"
 
-CMD tunctl -t "${N2N_IFACE}" && \
+CMD ip tuntap add mode tap name "${N2N_IFACE}" user root && \
     /sbin/edge -f -r -E \
         -l "${SUPERNODE}" \
         -c "${N2N_COMMUNITY}" \
